@@ -1,0 +1,7 @@
+# Flask Framework
+Flask==1.0.2
+
+# Requirements to send mail via api
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
