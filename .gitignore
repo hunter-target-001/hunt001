@@ -1,0 +1,5 @@
+.idea/
+hunt001.code-workspace
+server/assets/credentials/*
+*.pickle
+server/__pycache__
