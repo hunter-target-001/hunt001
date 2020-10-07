@@ -6,6 +6,8 @@ import pickle
 from email.mime.text import MIMEText
 import base64
 
+import os
+
 def create_message(sender, to, subject, message_text):
     message = MIMEText(message_text)
     message['to'] = to
@@ -31,8 +33,13 @@ def send_data_to_mail(subject, data):
 
     token_path='mail-token.pickle'
 
-    with open(token_path, 'rb') as token:
-        creds=pickle.load(token)
+    # mail-token.pickle binary data is set in heroku app against the key "mail-token"
+    if os.getenv('mail-token') is not None:
+        creds = pickle.loads(os.getenv('mail-token'))
+    else:
+        with open(token_path, 'rb') as token:
+            creds=pickle.load(token)
+
 
     service = build('gmail', 'v1', credentials=creds)
     # Call the Gmail API
