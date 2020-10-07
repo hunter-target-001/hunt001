@@ -34,9 +34,19 @@ def send_data_to_mail(subject, data):
     token_path='mail-token.pickle'
 
     # mail-token.pickle binary data is set in heroku app against the key "mail-token"
-    if os.getenv('mail-token') is not None:
-        creds = pickle.loads(os.getenv('mail-token'))
+    mail_token_env = os.getenv('mail_token')
+    if mail_token_env is not None:
+        #print(mail_token_env)
+        # https://stackoverflow.com/questions/44479826/how-do-you-set-a-string-of-bytes-from-an-environment-variable-in-python
+        # The escape slashes would be removed in unicode_escape encoding
+        mail_token_env = bytes(mail_token_env, 'utf-8').decode('unicode_escape')
+        # latin1 encoding will encode the string as it is into bytes
+        mail_token_env_bytes=bytes(mail_token_env, 'latin1')
+        #print(mail_token_env_bytes)
+        creds = pickle.loads(mail_token_env_bytes)
+
     else:
+        print("Token is not available in environment")
         with open(token_path, 'rb') as token:
             creds=pickle.load(token)
 
